@@ -1,8 +1,7 @@
 'use client';
-import Image from "next/image";
 import Workspace3D from "./Workspace3D";
-import { useEffect, useState, type PointerEvent } from 'react';
-import { ArrowDown, ArrowRight, ArrowUpRight, BriefcaseBusiness, Check, Code2, Download, Github, GraduationCap, Layers3, Linkedin, Mail, MapPin, Menu, Phone, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowDown, ArrowUpRight, BriefcaseBusiness, Check, Code2, Download, Github, GraduationCap, Layers3, Mail, MapPin, Menu, Phone, X } from 'lucide-react';
 
 const links = [ { label: 'About', href: '#about' }, { label: 'Projects', href: '#projects' }, { label: 'Experience', href: '#experience' }, { label: 'Skills', href: '#skills' }, { label: 'Contact', href: '#contact' } ];
 const projects = [
@@ -44,18 +43,6 @@ export default function Home() {
       document.documentElement.classList.remove('motion-ready');
     };
   }, []);
-  function tiltPortrait(event: PointerEvent<HTMLDivElement>) {
-    if (event.pointerType === 'touch' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-    event.currentTarget.style.setProperty('--tilt-x', `${(-y * 9).toFixed(2)}deg`);
-    event.currentTarget.style.setProperty('--tilt-y', `${(x * 11).toFixed(2)}deg`);
-  }
-  function resetPortrait(event: PointerEvent<HTMLDivElement>) {
-    event.currentTarget.style.setProperty('--tilt-x', '0deg');
-    event.currentTarget.style.setProperty('--tilt-y', '0deg');
-  }
   async function copyEmail() { try { await navigator.clipboard.writeText('manzidelphin2@gmail.com'); setCopied(true); setTimeout(() => setCopied(false), 2200); } catch { window.location.href = 'mailto:manzidelphin2@gmail.com'; } }
   return <>
     <div className="site-shell">
