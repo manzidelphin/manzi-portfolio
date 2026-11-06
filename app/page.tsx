@@ -1,6 +1,6 @@
 'use client';
 import Image from "next/image";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type PointerEvent } from 'react';
 import { ArrowDown, ArrowRight, ArrowUpRight, BriefcaseBusiness, Check, Code2, Download, Github, GraduationCap, Layers3, Linkedin, Mail, MapPin, Menu, Phone, X } from 'lucide-react';
 
 const links = [ { label: 'About', href: '#about' }, { label: 'Projects', href: '#projects' }, { label: 'Experience', href: '#experience' }, { label: 'Skills', href: '#skills' }, { label: 'Contact', href: '#contact' } ];
@@ -43,6 +43,18 @@ export default function Home() {
       document.documentElement.classList.remove('motion-ready');
     };
   }, []);
+  function tiltPortrait(event: PointerEvent<HTMLDivElement>) {
+    if (event.pointerType === 'touch' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    event.currentTarget.style.setProperty('--tilt-x', `${(-y * 9).toFixed(2)}deg`);
+    event.currentTarget.style.setProperty('--tilt-y', `${(x * 11).toFixed(2)}deg`);
+  }
+  function resetPortrait(event: PointerEvent<HTMLDivElement>) {
+    event.currentTarget.style.setProperty('--tilt-x', '0deg');
+    event.currentTarget.style.setProperty('--tilt-y', '0deg');
+  }
   async function copyEmail() { try { await navigator.clipboard.writeText('manzidelphin2@gmail.com'); setCopied(true); setTimeout(() => setCopied(false), 2200); } catch { window.location.href = 'mailto:manzidelphin2@gmail.com'; } }
   return <>
     <div className="site-shell">
@@ -62,7 +74,7 @@ export default function Home() {
             <div className="hero-actions"><a className="btn btn-primary" href="#projects">Explore my work <ArrowUpRight size={17}/></a><a className="btn btn-secondary" href="/Manzi_Delphin_CV.pdf" download>Download CV <Download size={17}/></a></div>
             <div className="hero-links"><a href="https://github.com/manzidelphin" target="_blank" rel="noopener noreferrer"><Github size={17}/> GitHub <ArrowUpRight size={13}/></a><a href="mailto:manzidelphin2@gmail.com"><Mail size={17}/> Email <ArrowUpRight size={13}/></a><a href="tel:+250785995840"><Phone size={16}/> +250 785 995 840</a><span><MapPin size={16}/> Kigali, Rwanda</span></div>
           </div>
-          <div className="hero-visual"><div className="orbit orbit-one" aria-hidden="true"/><div className="orbit orbit-two" aria-hidden="true"/><div className="orb-glow" aria-hidden="true"/><div className="portrait-frame"><Image className="portrait-image" src="/profile.jpeg" alt="Portrait of Manzi Delphin" fill sizes="(max-width: 700px) 270px, (max-width: 1000px) 320px, 360px" priority/></div><div className="floating-label"><span className="tiny-dot"/> DESIGN · DEVELOP · DELIVER</div></div>
+          <div className="hero-visual" onPointerMove={tiltPortrait} onPointerLeave={resetPortrait}><div className="depth-plane depth-plane-back" aria-hidden="true"/><div className="depth-plane depth-plane-front" aria-hidden="true"/><div className="orbit orbit-one" aria-hidden="true"/><div className="orbit orbit-two" aria-hidden="true"/><div className="orb-glow" aria-hidden="true"/><div className="portrait-frame"><span className="portrait-sheen" aria-hidden="true"/><Image className="portrait-image" src="/profile.jpeg" alt="Portrait of Manzi Delphin" fill sizes="(max-width: 700px) 270px, (max-width: 1000px) 320px, 360px" priority/></div><div className="floating-label"><span className="tiny-dot"/> DESIGN · DEVELOP · DELIVER</div></div>
           <a className="scroll-hint" href="#about"><ArrowDown size={15}/> SCROLL TO EXPLORE</a>
         </section>
         <section id="about" className="section wrap"><div className="section-heading" data-reveal><span className="section-kicker">01 / ABOUT ME</span><h2>Developer by skill.<br/><span>Problem-solver by nature.</span></h2></div><div className="about-grid"><div className="about-body" data-reveal><p>I&apos;m a software engineering student at the <strong>Adventist University of Central Africa (AUCA)</strong>, currently completing my final semester. My academic coursework is expected to finish in <strong>January 2027</strong>, with official graduation in <strong>November 2027</strong>.</p><p>I enjoy working across the stack—from responsive interfaces to backend APIs and data models. I&apos;ve gained industry experience at <strong>Spiro</strong> and built independent products including <strong>DELRON AI POS</strong> and <strong>GymMind</strong>.</p><p>I&apos;m interested in full-stack engineering, secure software, and technology that helps organizations work better.</p></div><div className="fact-grid" data-reveal><div className="fact"><Code2/><span>FOCUS</span><strong>Full-stack<br/>development</strong></div><div className="fact"><BriefcaseBusiness/><span>EXPERIENCE</span><strong>Spiro<br/>internship</strong></div><div className="fact"><Layers3/><span>PROJECTS</span><strong>SaaS & enterprise<br/>applications</strong></div><div className="fact"><GraduationCap/><span>EDUCATION</span><strong>AUCA<br/>Software Engineering</strong></div></div></div></section>
