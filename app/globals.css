@@ -89,3 +89,43 @@ a:focus-visible, button:focus-visible { outline: 2px solid #8abaff; outline-offs
   .project-card:focus-within .project-symbol, .project-actions a:hover svg,
   .project-actions a:focus-visible svg, .header-cta:hover svg, .btn:hover svg { transform: none; }
 }
+/* Premium minimal depth: CSS 3D, no WebGL payload, and no additional dependencies. */
+.hero-visual { perspective: 1100px; transform-style: preserve-3d; isolation: isolate; }
+.hero-visual .portrait-frame {
+  animation: none;
+  transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateZ(28px);
+  transition: transform 500ms cubic-bezier(.2,.7,.2,1), box-shadow 400ms ease;
+  box-shadow: 0 38px 90px rgba(0,0,0,.48), 0 0 0 1px rgba(139,178,226,.12);
+  will-change: transform;
+}
+.hero-visual:hover .portrait-frame { box-shadow: 0 48px 110px rgba(0,0,0,.55), 0 0 45px rgba(97,149,245,.12); }
+.portrait-sheen { position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(130deg,rgba(255,255,255,.12),transparent 36%,transparent 72%,rgba(102,170,255,.08)); }
+.depth-plane { position:absolute;width:74%;height:72%;border:1px solid rgba(142,175,217,.13);border-radius:30px;pointer-events:none; }
+.depth-plane-back { transform:translate3d(24px,-14px,-65px) rotate(-8deg);background:linear-gradient(140deg,rgba(102,148,214,.045),transparent); }
+.depth-plane-front { transform:translate3d(-24px,18px,-28px) rotate(7deg);border-color:rgba(139,180,233,.09); }
+.hero-visual .orbit { transform:translateZ(-90px) rotateX(66deg); }
+.hero-visual .floating-label { transform:translateZ(75px) rotate(3deg);box-shadow:0 16px 34px rgba(0,0,0,.35); }
+.project-grid { perspective:1500px; }
+.project-card { transform-style:preserve-3d;backface-visibility:hidden; }
+.project-card:hover,.project-card:focus-within { transform:translateY(-7px) rotateX(1.5deg); }
+.project-graphic { perspective:800px; }
+.graphic-core { transform:translateZ(28px);transition:transform .35s ease; }
+.project-card:hover .graphic-core { transform:translateZ(44px) scale(1.035); }
+.graphic-orbit { transform:rotateX(62deg) rotate(-25deg) translateZ(15px); }
+.fact,.skill-group,.contact-panel { box-shadow:0 16px 42px rgba(0,0,0,.08); }
+@media (max-width:1000px) {
+  .hero-visual .portrait-frame { transform:none;will-change:auto; }
+  .depth-plane { width:65%;height:75%; }
+  .project-card:hover,.project-card:focus-within { transform:translateY(-4px); }
+}
+@media (max-width:700px) {
+  .depth-plane { width:78%;height:72%; }
+  .hero-visual .orbit { transform:rotateX(66deg); }
+  .hero-visual .floating-label { transform:rotate(3deg); }
+  .project-card:hover,.project-card:focus-within { transform:none; }
+  .graphic-core,.project-card:hover .graphic-core { transform:none; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .hero-visual .portrait-frame,.hero-visual:hover .portrait-frame { transform:none;will-change:auto; }
+  .project-card:hover,.project-card:focus-within,.project-card:hover .graphic-core { transform:none; }
+}
