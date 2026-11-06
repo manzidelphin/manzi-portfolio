@@ -18,7 +18,7 @@ export default function Workspace3D() {
    <div className="workspace-computer">
     <div className="workspace-display">
      <div className="workspace-toolbar"><span/><span/><span/><small>manzi / workspace</small></div>
-     <div className="workspace-code"><span className="code-comment">// building things that matter</span><span><b>const</b> developer = {'{'}</span><span>  name: <em>'Manzi Delphin'</em>,</span><span>  focus: <em>'Full Stack'</em>,</span><span>  mission: <em>'Real impact'</em></span><span>{'}'};</span><span className="code-cursor">▌</span></div>
+     <div className="workspace-code"><span className="code-comment">// building things that matter</span><span><b>const</b> developer = {'{'}</span><span>  name: <em>&apos;Manzi Delphin&apos;</em>,</span><span>  focus: <em>&apos;Full Stack&apos;</em>,</span><span>  mission: <em>&apos;Real impact&apos;</em></span><span>{'}'};</span><span className="code-cursor">▌</span></div>
     </div>
     <div className="workspace-keyboard" aria-hidden="true"><div className="keyboard-lines"/></div>
    </div>
